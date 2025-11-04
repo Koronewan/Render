@@ -1,19 +1,38 @@
-// Render.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
-//
-
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <chrono>
+#include "Vector3.h"
+#include "Screen.h"
 
-int main()
+constexpr int WIDTH = 1920;
+constexpr int HEIGHT = 1080;
+
+void render_image(int width, int height, std::vector<Vector3> &pixels_rgb_values)
 {
-    std::cout << "Hello World!\n";
+    const double z_value = 0.5;
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            Vector3 rgb_value((float)x / (width - 1), (float)y / (height - 1), z_value);
+            pixels_rgb_values[y * width + x] = rgb_value;
+        }
+    }
 }
 
-// Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
-// Depurar programa: F5 o menú Depurar > Iniciar depuración
+int main(int argc, char* argv[])
+{
+    auto start = std::chrono::high_resolution_clock::now();
 
-// Sugerencias para primeros pasos: 1. Use la ventana del Explorador de soluciones para agregar y administrar archivos
-//   2. Use la ventana de Team Explorer para conectar con el control de código fuente
-//   3. Use la ventana de salida para ver la salida de compilación y otros mensajes
-//   4. Use la ventana Lista de errores para ver los errores
-//   5. Vaya a Proyecto > Agregar nuevo elemento para crear nuevos archivos de código, o a Proyecto > Agregar elemento existente para agregar archivos de código existentes al proyecto
-//   6. En el futuro, para volver a abrir este proyecto, vaya a Archivo > Abrir > Proyecto y seleccione el archivo .sln
+    std::string path = argv[1];
+    std::vector<Vector3> pixels_rgb_values(HEIGHT * WIDTH);
+    Screen screen(WIDTH, HEIGHT);
+    render_image(WIDTH, HEIGHT, pixels_rgb_values);
+    screen.save_render(path, pixels_rgb_values);
+
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = duration_cast<std::chrono::seconds>(stop - start);
+    std::cout << "Time taken: " << duration.count() << "s\n";
+}
