@@ -16,7 +16,7 @@ void render_image(int width, int height, Screen &screen)
     {
         for (int x = 0; x < width; x++)
         {
-            Vector3 value((float)x / (width - 1), (float)y / (height - 1), z_value);
+            Vector3 value(static_cast<double>(x) / (width - 1), static_cast<double>(y) / (height - 1), z_value);
             screen.save_pixel(x, y, value);
         }
     }

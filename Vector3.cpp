@@ -8,16 +8,16 @@ std::ostream& operator<<(std::ostream& os, const Vector3& vector)
 
 Vector3::Vector3()
 {
-	this->x_ = 0;
-	this->y_ = 0;
-	this->z_ = 0;
+	x_ = 0;
+	y_ = 0;
+	z_ = 0;
 }
 
 Vector3::Vector3(double x, double y, double z)
 {
-	this->x_ = x;
-	this->y_ = y;
-	this->z_ = z;
+	x_ = x;
+	y_ = y;
+	z_ = z;
 }
 
 Vector3 Vector3::operator*(double scalar) const

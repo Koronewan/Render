@@ -3,31 +3,34 @@
 Screen::Screen(int width, int height) :width_(width), height_(height)
 {
     // We use resize because if we use save_renderer before saving a pixel, we will have default values
-    this->pixels.resize(width * height);
+    pixels.resize(width * height);
 }
 
 void Screen::save_pixel(int x, int y, const Vector3& pixel)
 {
-    // TODO: is this necessary? adds load in critical function
-    if (x >= this->width_ || y >= this->height_)
-        throw std::out_of_range("save_pixel: index out of bounds");
+    assert(x < width_ && "x coordinate out of bounds");
+    assert(y < height_ && "y coordinate out of bounds");
+    assert(x >= 0 && "x coordinate must be positive");
+    assert(y >= 0 && "y coordinate must be positive");
 
-    this->pixels[x + this->width_ * y] = pixel * this->max_rgb_value;
+    pixels[x + width_ * y] = pixel;
 }
 
 void Screen::save_render(const std::string& path)
 {
+    constexpr int max_rgb_value = 255;
+    constexpr double max_rgb_double = 255.999; 
+
     std::ofstream render(path);
     render << "P3\n";
-    render << this->width_ << " " << this->height_ << "\n";
-    render << this->max_rgb_value << "\n";
+    render << width_ << " " << height_ << "\n";
+    render << max_rgb_value << "\n";
 
-    for (const Vector3& pixel : this->pixels)
+    for (const Vector3& pixel : pixels)
     {
-        render << static_cast<int>(pixel.x()) << " " 
-            << static_cast<int>(pixel.y()) << " " 
-            << static_cast<int>(pixel.z()) << " " << "\n";
+        render << static_cast<int>(max_rgb_double * pixel.x()) << " "
+            << static_cast<int>(max_rgb_double * pixel.y()) << " "
+            << static_cast<int>(max_rgb_double * pixel.z()) << "\n";
     }
-
     render.close();
 }
