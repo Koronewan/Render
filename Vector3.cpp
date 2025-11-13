@@ -22,5 +22,12 @@ Vector3::Vector3(double x, double y, double z)
 
 Vector3 Vector3::operator*(double scalar) const
 {
+	// return A * t
 	return Vector3(x_ * scalar, y_ * scalar, z_ * scalar);
+}
+
+Vector3 Vector3::operator+(const Vector3& vector) const
+{
+	// return A + B
+	return Vector3(x_ + vector.x(), y_ + vector.y(), z_ + vector.z());
 }

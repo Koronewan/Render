@@ -11,8 +11,8 @@ public:
 	Screen(int width, int height);
 	void save_pixel(int x, int y, const Vector3& pixel);
 	void save_render(const std::string& path);
-	int width() const { return width_; }
-	int height() const { return height_; }
+	inline int width() const { return width_; }
+	inline int height() const { return height_; }
 private:
 	std::vector<Vector3> pixels;
 	int width_;

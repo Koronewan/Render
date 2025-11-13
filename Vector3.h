@@ -8,9 +8,10 @@ public:
     Vector3();
     Vector3(double x, double y, double z);
     Vector3 operator*(double scalar) const;
-    double x() const { return x_; }
-    double y() const { return y_; }
-    double z() const { return z_; }
+    Vector3 operator+(const Vector3 &vector) const;
+    inline double x() const { return x_; }
+    inline double y() const { return y_; }
+    inline double z() const { return z_; }
 private:
     double x_;
     double y_;
