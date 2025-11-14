@@ -7,8 +7,12 @@ class Vector3
 public:
     Vector3();
     Vector3(double x, double y, double z);
+    double dot(const Vector3& vector) const;
+    double sum() const;
     Vector3 operator*(double scalar) const;
-    Vector3 operator+(const Vector3 &vector) const;
+    Vector3 operator-(double value) const;
+    Vector3 operator+(const Vector3& vector) const;
+    Vector3 operator-(const Vector3& vector) const;
     inline double x() const { return x_; }
     inline double y() const { return y_; }
     inline double z() const { return z_; }

@@ -3,6 +3,7 @@
 
 class Ray
 {
+public:
 	Ray(const Vector3& origin, const Vector3& direction);
 	Vector3 point_at_parameter(double t) const;
 	inline Vector3 origin() const { return origin_; };

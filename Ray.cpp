@@ -1,9 +1,9 @@
 #include "Ray.h"
 
-Ray::Ray(const Vector3& origin, const Vector3& direction)
+Ray::Ray(const Vector3& origin, const Vector3& direction) :
+    origin_(origin), direction_(direction)
 {
-    origin_ = origin;
-    direction_ = direction;
+
 }
 
 Vector3 Ray::point_at_parameter(double t) const
